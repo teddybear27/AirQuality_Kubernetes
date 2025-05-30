@@ -1,0 +1,40 @@
+# Dockerfile pour l'application Streamlit
+FROM python:3.9-slim
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Installer les dépendances système nécessaires
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copier les fichiers de requirements
+COPY requirements.txt .
+
+# Installer les dépendances Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier l'application Streamlit
+COPY streamlit_front.py .
+
+# Créer le répertoire pour les modèles
+RUN mkdir -p /app/models
+
+# Définir les permissions
+RUN chmod +x streamlit_front.py
+
+# Exposer le port Streamlit
+EXPOSE 8501
+
+# Créer un utilisateur non-root pour la sécurité
+RUN useradd -m -u 1000 streamlit && chown -R streamlit:streamlit /app
+USER streamlit
+
+# Healthcheck pour Streamlit
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8501/_stcore/health || exit 1
+
+# Commande par défaut
+CMD ["streamlit", "run", "streamlit_front.py", "--server.address", "0.0.0.0", "--server.port", "8501"]
