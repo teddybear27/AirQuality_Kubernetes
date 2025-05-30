@@ -1,0 +1,6 @@
+,RMSE,R2,Best_Parameters,Best_CV_Score
+pm2_5,0.5909936988542697,0.9902655905525125,"{'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 200, 'subsample': 0.8}",0.9897729575674662
+pm10,1.35496017360469,0.9838526297892759,"{'max_depth': 15, 'max_features': 'sqrt', 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 300}",0.9789932037596986
+no2,2.0534805913793095,0.9895903566092724,"{'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 200, 'subsample': 0.8}",0.9907950378964345
+o3,1.1277118933463115,0.9879513756909118,"{'learning_rate': 0.1, 'max_depth': 3, 'n_estimators': 200, 'subsample': 0.8}",0.9892697747700868
+co,0.017906007789653604,0.906114080273864,"{'learning_rate': 0.05, 'max_depth': 5, 'n_estimators': 100, 'subsample': 0.8}",-1.8711632936599648e+22
