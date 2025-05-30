@@ -17,7 +17,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le script de preprocessing
-COPY preprocessing.py .
+COPY Preprocessing.py .
 
 # Créer les répertoires pour les données et modèles
 RUN mkdir -p /app/data /app/models

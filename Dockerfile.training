@@ -17,13 +17,13 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le script de training
-COPY training_models_final.py .
+COPY Training_Models_Final.py .
 
 # Créer les répertoires pour les données et modèles
 RUN mkdir -p /app/data /app/models
 
 # Définir les permissions
-RUN chmod +x training_models_final.py
+RUN chmod +x Training_Models_Final.py
 
 # Exposer le répertoire de travail comme volume
 VOLUME ["/app/data", "/app/models"]
@@ -33,4 +33,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD python -c "import os; exit(0 if os.path.exists('/app/models/model.pkl') else 1)" || exit 1
 
 # Commande par défaut
-CMD ["python", "training_models_final.py"]
+CMD ["python", "Training_Models_Final.py"]

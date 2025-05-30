@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
     depends_on:
       - preprocessing
-    command: python training_models_final.py
+    command: python Training_Models_Final.py
 
   # Interface Streamlit
   streamlit_app:
