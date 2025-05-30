@@ -23,10 +23,10 @@ COPY Preprocessing.py .
 RUN mkdir -p /app/data /app/models
 
 # Définir les permissions
-RUN chmod +x preprocessing.py
+RUN chmod +x Preprocessing.py
 
 # Exposer le répertoire de travail comme volume
 VOLUME ["/app/data", "/app/models"]
 
 # Commande par défaut (peut être overridée dans docker-compose)
-CMD ["python", "preprocessing.py"]
+CMD ["python", "Preprocessing.py"]

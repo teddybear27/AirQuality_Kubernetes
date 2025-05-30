@@ -15,7 +15,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
-    command: python preprocessing.py
+    command: python Preprocessing.py
 
   # Service d'entraînement des modèles
   training:
