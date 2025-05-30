@@ -1,83 +1,39 @@
-version: '3.8'
-
 services:
-  # Service de preprocessing des données
-  preprocessing:
+  ml_preprocessing:
     build:
       context: .
       dockerfile: Dockerfile.preprocessing
-    container_name: ml_preprocessing
     volumes:
-      - ml_data:/app/data
-      - ml_models:/app/models
+      - ./data:/app/data
     networks:
-      - data_network
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped
-    command: python Preprocessing.py
+      - backend
 
-  # Service d'entraînement des modèles
-  training:
+  ml_training:
     build:
       context: .
       dockerfile: Dockerfile.training
-    container_name: ml_training
     volumes:
-      - ml_data:/app/data
-      - ml_models:/app/models
+      - ./data:/app/data
+      - ./models:/app/models
     networks:
-      - data_network
-      - api_network
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped
+      - backend
     depends_on:
-      - preprocessing
-    command: python Training_Models_Final.py
+      - ml_preprocessing
 
-  # Interface Streamlit
   streamlit_app:
     build:
       context: .
       dockerfile: Dockerfile.streamlit
-    container_name: ml_streamlit
     ports:
       - "8501:8501"
     volumes:
-      - ml_models:/app/models
+      - ./data:/app/data
+      - ./models:/app/models
     networks:
-      - api_network
-    environment:
-      - PYTHONUNBUFFERED=1
-    restart: unless-stopped
+      - frontend
     depends_on:
-      - training
-    command: streamlit run streamlit_front.py --server.address 0.0.0.0
+      - ml_training
 
-# Définition du volume partagé
-volumes:
-  ml_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./data
-  ml_models:
-    driver: local
-
-# Définition des 2 réseaux
 networks:
-  # Réseau pour le traitement des données (preprocessing <-> training)
-  data_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
-
-  # Réseau pour l'API et l'interface (training <-> streamlit)
-  api_network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.21.0.0/16
+  frontend:
+  backend:
