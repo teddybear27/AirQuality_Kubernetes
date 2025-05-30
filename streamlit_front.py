@@ -44,7 +44,7 @@ st.sidebar.write("ENV-AI Collaborateurs")
 st.sidebar.write("[Rimey ABOKY](%s)" % url1)
 st.sidebar.write("[Aminatou DIALLO](%s)" % url2)
 st.sidebar.write("[Cheikh KANE](%s)" % url3)
-st.sidebar.write("[Stephan SCHWEITZER](%s)" % url4)
+st.sidebar.write("[Adrian FOEZON](%s)" % url4)
 
 st.sidebar.markdown(
     "**Comment fonctionne ENV-AI** \n"
