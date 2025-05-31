@@ -11,7 +11,7 @@ from sklearn.preprocessing import LabelEncoder
 url1 = "https://www.linkedin.com/in/rimey-aboky-25603a20b/"
 url2 = "https://www.linkedin.com/in/nene-aminatou-diallo/"
 url3 = "https://www.linkedin.com/in/cheikhkane0104/"
-url4 = "https://www.linkedin.com/in/stephan-schweitzer-8a07091b8/"
+url4 = "https://fr.linkedin.com/in/afoezon"
 
 # Chargement des modèles
 polluants_models = {
