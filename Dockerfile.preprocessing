@@ -1,32 +1,10 @@
-# Dockerfile pour le service de preprocessing
 FROM python:3.9-slim
 
-# Définir le répertoire de travail
 WORKDIR /app
 
-# Installer les dépendances système nécessaires
-RUN apt-get update && apt-get install -y \
-    gcc \
-    g++ \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copier les fichiers de requirements (à créer)
 COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Installer les dépendances Python
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copier le script de preprocessing
 COPY Preprocessing.py .
 
-# Créer les répertoires pour les données et modèles
-RUN mkdir -p /app/data /app/models
-
-# Définir les permissions
-RUN chmod +x Preprocessing.py
-
-# Exposer le répertoire de travail comme volume
-VOLUME ["/app/data", "/app/models"]
-
-# Commande par défaut (peut être overridée dans docker-compose)
 CMD ["python", "Preprocessing.py"]
